@@ -1,23 +1,753 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    "name": "대전개인회생 지원센터",
+    "url": "https://daejeon-rehab.co.kr",
+    "logo": "https://daejeon-rehab.co.kr/logo.png",
+    "image": "https://daejeon-rehab.co.kr/main-banner.jpg",
+    "description": "2026년 대전지방법원 개인회생 전문 법률상담 및 자가진단 계산기 제공. 대전 서구, 유성구, 중구, 동구, 대덕구 지역 맞춤형 변제금 산정 및 개인회생 제도 분석.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "서구 둔산동",
+      "addressRegion": "대전광역시",
+      "streetAddress": "둔산로 123",
+      "postalCode": "35233",
+      "addressCountry": "KR"
+    },
+    "telephone": "+82-42-000-0000",
+    "priceRange": "₩₩₩",
+    "areaServed": [
+      {
+        "@type": "AdministrativeArea",
+        "name": "대전광역시"
+      },
+      {
+        "@type": "AdministrativeArea",
+        "name": "충청남도"
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    body { 
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; 
+      margin: 0; 
+      padding: 0; 
+      line-height: 1.8; 
+      color: #1e293b; 
+      background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #eff6ff 100%);
+    }
+    
+    header { 
+      background: #0f766e; 
+      color: #ffffff; 
+      padding: 40px 20px; 
+      text-align: center; 
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    
+    header h1 { 
+      font-size: 2.2rem; 
+      margin: 0 0 10px 0; 
+      font-weight: 800; 
+      letter-spacing: -0.05em;
+    }
+    
+    header p { 
+      font-size: 1.15rem; 
+      margin: 0 0 20px 0; 
+      opacity: 0.9;
+    }
+    
+    nav {
+      margin-top: 15px;
+    }
+
+    nav a { 
+      margin: 0 10px; 
+      color: #ccfbf1; 
+      text-decoration: none; 
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 4px;
+    }
+    
+    nav a:hover {
+      border-bottom: 2px solid #ccfbf1;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .grid-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    @media (min-width: 768px) {
+      .grid-layout {
+        grid-template-columns: 2fr 1fr;
+      }
+    }
+
+    section { 
+      background: #ffffff; 
+      padding: 35px; 
+      border-radius: 16px; 
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+      border: 1px solid #e2e8f0;
+    }
+    
+    h2 { 
+      font-size: 1.6rem; 
+      color: #0f766e; 
+      margin-top: 0; 
+      margin-bottom: 20px; 
+      border-bottom: 3px solid #ccfbf1; 
+      padding-bottom: 8px;
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      color: #115e59;
+      margin-top: 25px;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0 0 15px 0;
+      text-align: justify;
+    }
+
+    .highlight-box {
+      background-color: #faf5ff;
+      border-left: 5px solid #a855f7;
+      padding: 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+
+    .info-panel {
+      background-color: #f0fdf4;
+      border-left: 5px solid #10b981;
+      padding: 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+
+    .warning-panel {
+      background-color: #fffbeb;
+      border-left: 5px solid #f59e0b;
+      padding: 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.95rem;
+    }
+
+    table th, table td {
+      border: 1px solid #e2e8f0;
+      padding: 12px;
+      text-align: left;
+    }
+
+    table th {
+      background-color: #f1f5f9;
+      color: #334155;
+      font-weight: 600;
+    }
+
+    ul { 
+      padding-left: 20px; 
+      margin: 0 0 20px 0;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .calc-container {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 25px;
+      margin-top: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 1rem;
+      background-color: #ffffff;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      outline: none;
+      border-color: #0f766e;
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+    }
+
+    .calc-btn {
+      background: #0f766e;
+      color: #ffffff;
+      border: none;
+      padding: 14px 20px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 8px;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .calc-btn:hover {
+      background: #0d9488;
+    }
+
+    .calc-result-box {
+      margin-top: 20px;
+      padding: 20px;
+      background: #f0fdf4;
+      border: 1px dashed #10b981;
+      border-radius: 8px;
+      font-weight: 500;
+      color: #065f46;
+      display: none;
+    }
+
+    .chart-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      padding: 20px;
+      border-radius: 12px;
+      margin: 20px 0;
+    }
+
+    .bar-row {
+      margin-bottom: 15px;
+    }
+
+    .bar-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .bar-wrapper {
+      background: #e2e8f0;
+      border-radius: 9999px;
+      height: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 9999px;
+      text-align: right;
+      padding-right: 10px;
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: bold;
+      line-height: 24px;
+      box-sizing: border-box;
+    }
+
+    .bar-before {
+      background: #ef4444;
+      width: 100%;
+    }
+
+    .bar-after {
+      background: #10b981;
+      width: 15%;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .cta-button {
+      background: #ea580c;
+      color: #ffffff;
+      padding: 15px 30px;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 8px;
+      display: inline-block;
+      text-align: center;
+      transition: background 0.2s;
+      margin-top: 15px;
+    }
+
+    .cta-button:hover {
+      background: #c2410c;
+    }
+
+    .external-links-section a {
+      color: #0284c7;
+      text-decoration: none;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .external-links-section a:hover {
+      text-decoration: underline;
+    }
+
+    footer { 
+      background: #1e293b; 
+      color: #94a3b8; 
+      text-align: center; 
+      padding: 40px 20px; 
+      font-size: 0.85rem; 
+      border-top: 5px solid #0f766e;
+    }
+
+    footer p {
+      margin: 5px 0;
+      text-align: center;
+    }
+
+    .keyword-cloud {
+      background: #f1f5f9;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    .keyword-cloud span {
+      display: inline-block;
+      margin-right: 10px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>대전개인회생 지원센터</h1>
+    <p>2026년 최신 대전지방법원 지침 반영 – 투명하고 정확한 채무 극복 법률 가이드</p>
     <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
+      <a href="#intro">제도 안내</a>
+      <a href="#calculator-sec">모의 계산기</a>
+      <a href="#court-trends">대전법원 경향</a>
+      <a href="#reviews">사례 및 분석</a>
+      <a href="#external-links">공식 자료실</a>
+      <a href="#consulting-form">법률 상담 신청</a>
     </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+  </header>
+
+  <div class="container">
+    <div class="grid-layout">
+      
+      <main>
+        
+        <section id="intro">
+          <h2>대전개인회생 제도의 본질과 2026년 자격 요건</h2>
+          <p>
+            장기화된 경기 침체와 가계 부채 증가 속에서 과도한 빚으로 고통받는 서민들을 위해 국가에서 시행하는 채무 조정 제도가 바로 개인회생입니다. 특히 대전광역시 서구, 유성구, 중구, 동구, 대덕구를 비롯하여 충청권 전역을 관할하는 대전지방법원의 사법적 판단 기준은 매년 고도화되고 있습니다. 본 가이드에서는 신청인들이 사전에 자신의 자격을 파악하고 실질적인 대안을 세울 수 있도록 돕습니다.
+          </p>
+          <p>
+            개인회생 제도는 무담보 채무의 경우 최대 10억 원, 담보부 채무의 경우 최대 15억 원 이하의 부채를 가진 개인 채무자가 대상이 됩니다. 신청인은 향후 계속적이고 반복적인 수입을 얻을 가능성이 있어야 합니다. 이때 매월 발생하는 가용소득을 기반으로 3년에서 최대 5년 동안 일정 금액을 변제하면 남은 원금과 이자를 면책받게 됩니다.
+          </p>
+          <div class="info-panel">
+            <strong>2026년 기준 중위소득 및 가구원수별 최저생계비 기준 안내</strong><br>
+            개인회생 진행 시 산정되는 기본 생계비는 보건복지부 고시 중위소득의 60퍼센트 수준으로 결정됩니다. 월평균 소득에서 이 생계비를 공제한 금액이 매달 법원에 납부해야 할 월 변제금의 기초가 됩니다.<br>
+            1인 가구 최저생계비: 약 1,350,000 원<br>
+            2인 가구 최저생계비: 약 2,250,000 원<br>
+            3인 가구 최저생계비: 약 2,900,000 원<br>
+            4인 가구 최저생계비: 약 3,500,000 원
+          </div>
+          <p>
+            신청인의 가용소득을 정확히 <strong>계산</strong>하는 과정은 개인회생 성공의 핵심 요체입니다. 월 소득이 생계비 기준보다 적다면 회생을 진행하기 어려우며, 이 경우에는 개인파산 절차를 밟아야 할 수도 있습니다. 따라서 전문가와의 1대1 <strong>상담</strong>이나 체계적인 법률 <strong>컨설팅</strong>을 선행하는 것이 바람직합니다.
+          </p>
+        </section>
+
+        <section id="calculator-sec">
+          <h2>2026년 대전개인회생 자가진단 및 예상 월 변제금 계산기</h2>
+          <p>
+            자신의 재정 상태를 기초로 대략적인 월 변제금과 탕감률을 모의 산정해 볼 수 있는 <strong>계산기</strong> 도구입니다. 본 자가진단 시스템은 모바일 <strong>앱</strong>이나 스마트폰 <strong>어플</strong> 설치 없이 웹 브라우저에서 즉시 실행이 가능하며, 대리인 개입 없이 신청자가 직접 수행하는 <strong>다이렉트</strong> 계산 방식을 제공합니다.
+          </p>
+          
+          <div class="calc-container">
+            <div class="form-group">
+              <label for="calc-income">나의 월평균 실수령 소득 (원 단위로 입력)</label>
+              <input type="number" id="calc-income" placeholder="예: 2500000" value="2500000">
+            </div>
+            
+            <div class="form-group">
+              <label for="calc-debt">총 채무 금액 (원 단위로 입력)</label>
+              <input type="number" id="calc-debt" placeholder="예: 50000000" value="50000000">
+            </div>
+
+            <div class="form-group">
+              <label for="calc-assets">보유 자산 가치 총액 (부동산, 예적금, 차량 등)</label>
+              <input type="number" id="calc-assets" placeholder="예: 10000000" value="10000000">
+            </div>
+
+            <div class="form-group">
+              <label for="calc-dependents">부양 가족 수 (본인 제외)</label>
+              <select id="calc-dependents">
+                <option value="1">없음 (본인 1인 가구)</option>
+                <option value="2">1명 부양 (2인 가구)</option>
+                <option value="3">2명 부양 (3인 가구)</option>
+                <option value="4">3명 이상 부양 (4인 가구)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="calc-age">신청자 연령대 선택</label>
+              <select id="calc-age">
+                <option value="20">20대 청년층</option>
+                <option value="30">30대 직장인/청년</option>
+                <option value="40">40대 중장년층</option>
+                <option value="50">50대 중장년층</option>
+                <option value="60">60대 이상 고령층</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="calc-region">대전 관할 거주 자치구 선택</label>
+              <select id="calc-region">
+                <option value="서구">대전광역시 서구 (둔산동, 월평동, 탄방동 등)</option>
+                <option value="유성구">대전광역시 유성구 (노은동, 봉명동, 신성동 등)</option>
+                <option value="중구">대전광역시 중구 (오류동, 대흥동, 은행동 등)</option>
+                <option value="동구">대전광역시 동구 (용전동, 홍도동 등)</option>
+                <option value="대덕구">대전광역시 대덕구 (송촌동, 법동 등)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="calc-reason">주요 채무 발생 원인 종류</label>
+              <select id="calc-reason">
+                <option value="living">일반 생활비 및 가계 생계 누적</option>
+                <option value="business">자영업 사업 실패 및 운영자금</option>
+                <option value="investment">주식, 가상화폐(비트코인) 투자 실패</option>
+                <option value="gambling">사행성 스포츠토토 및 도박 채무</option>
+                <option value="guarantee">타인 보증 채무 및 사기 피해</option>
+              </select>
+            </div>
+
+            <button type="button" class="calc-btn" onclick="calculateRehab()">예상 변제금 및 감면율 산정하기</button>
+            
+            <div id="calc-result" class="calc-result-box"></div>
+          </div>
+
+          <div class="chart-box">
+            <h3>개인회생 변제 전후 월 납입 부담액 체감 비교 그래프</h3>
+            <p>
+              아래의 막대 그래프는 일반적인 다중 채무자가 매월 원리금 상환 압박에 시달릴 때와 개인회생 인가 후 법원에 납부하는 월 변제금을 상호 비교한 예시입니다.
+            </p>
+            <div class="bar-row">
+              <div class="bar-label">회생 절차 이전 매월 원리금 상환액 (평균 부담 수준)</div>
+              <div class="bar-wrapper">
+                <div class="bar-fill bar-before">100% (원리금 전액 및 이자 지속 부담)</div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">회생 절차 인가 이후 법원 월 변제금 (감면 혜택 적용 수준)</div>
+              <div class="bar-wrapper">
+                <div class="bar-fill bar-after">약 15% 내외 (소득 대비 가용소득만 납부)</div>
+              </div>
+            </div>
+          </div>
+
+          <p>
+            정부 소상공인 정책이나 긴급 <strong>지원금</strong>, 시중 대환대출 <strong>상품</strong> 및 제2금융권 대환론 등 다양한 구제책이 있지만, 원금 자체를 원천적으로 감면해 주는 제도는 공적 채무조정이 유일합니다. 본인 계좌나 자산 한도 내에서 정밀한 자가분석을 선행하면 불필요한 시행착오를 줄일 수 있습니다.
+          </p>
+        </section>
+
+        <section id="court-trends">
+          <h2>대전지방법원 개인회생 심사 지침 및 지역적 특징</h2>
+          <p>
+            대전지방법원은 충청남도와 대전 전역의 채무 조정을 담당하는 관할 법원으로서, 타 법원과 비교했을 때 매우 독자적이고 신중한 보정 심사 기준을 적용하고 있습니다. 특히 주식 투자나 가상화폐 거래, 불법 사행성 도박 채무의 처리에 관해서 엄격한 편입니다. 서울회생법원의 경우 청년층의 주식 코인 손실액을 청산가치에서 제외해 주는 실무 준칙을 적용하지만, 대전지방법원은 여전히 원칙적으로 투자 실패로 유실된 재정 <strong>금액</strong> 역시 채무자의 청산가치에 일정 비율 산입하도록 명하는 보정 권고 비율이 높습니다.
+          </p>
+          <p>
+            또한, 최근 <strong>신규</strong>로 조정된 2026년 실무 지침에 따르면 위장 이혼을 통한 재산 은닉 행위나 배우자 명의의 재산 형성 과정에 대한 추적 조사가 강화되었습니다. 배우자 소유의 자산이라 할지라도 혼인 생활 중에 공동으로 축적한 자산이라면 그 지분의 상당 부분을 신청인의 청산가치에 반영하라는 지시를 받게 됩니다. 따라서 청산가치 산정이 까다로운 사건일수록 초기 법률대리인 <strong>업체</strong>의 역량이 매우 중요합니다.
+          </p>
+          
+          <h3>개인회생과 신용회복위원회 워크아웃 제도의 명확한 차이점 분석</h3>
+          <p>
+            채무자 구제 제도는 크게 사적 채무조정(워크아웃)과 공적 채무조정(법원 회생/파산)으로 나뉩니다. 두 제도는 채무 감면 범위와 대상 채권 범위에서 커다란 <strong>차이점</strong>을 보입니다.
+          </p>
+          
+          <table>
+            <thead>
+              <tr>
+                <th>비교 기준 항목</th>
+                <th>개인회생 제도 (법원 관할)</th>
+                <th>신용회복위원회 워크아웃 (협약 기관)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>가장</strong> 큰 핵심 <strong>장점</strong></td>
+                <td>원금의 최대 90퍼센트까지 감면 가능, 사채 및 사설 보증 채무 포함</td>
+                <td>연체이자 전액 감면, 원금 감면은 채권 성격 및 연체 기간에 따라 차등 제한</td>
+              </tr>
+              <tr>
+                <td>피해갈 수 없는 주요 <strong>단점</strong></td>
+                <td>신용 카드 사용 중단, 절차의 복잡성, 송달료 등 진행 <strong>비용</strong> 발생</td>
+                <td>신용협약에 가입되지 않은 대부업체나 개인 채권자는 제외됨</td>
+              </tr>
+              <tr>
+                <td>채무 조정의 범위</td>
+                <td>제도에 포함되는 채무의 <strong>종류</strong>에 제한 없음 (모든 채무 통합)</td>
+                <td>신용회복위원회와 협약을 맺은 금융회사의 채무로만 한정</td>
+              </tr>
+              <tr>
+                <td>독촉 금지 시점 및 효과</td>
+                <td>접수 후 약 1주에서 2주 내 금지명령 결정을 통한 독촉 원천 차단 <strong>혜택</strong></td>
+                <td>접수 익일부터 독촉이 일시 중단되나 기각 시 즉시 추심 재개</td>
+              </tr>
+              <tr>
+                <td>수임료 및 절차 가격</td>
+                <td>송달료, 인지대 및 대리인 선임 수임 <strong>가격</strong> 등 초기 재정 부담 존재</td>
+                <td>신청비 5만 원 수준으로 매우 저렴하며 다이렉트 신속 접수 가능</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            위 표에서 보는 바와 같이 두 조치 간에는 확실한 <strong>장단점</strong>이 공존하므로 어느 제도가 본인의 채무 규모와 자산 상황에 부합하는지 <strong>비교</strong>하여 의사결정을 내려야 합니다. 대부업체 고금리 채무나 사채 비율이 높은 상황이라면 사적 워크아웃보다는 법원 회생을 선택하는 것이 상책입니다.
+          </p>
+        </section>
+
+        <section id="reviews">
+          <h2>인터넷 커뮤니티의 실제 사례와 세대별 진행 후기 분석</h2>
+          <p>
+            채무조정을 진지하게 고민하는 다수의 사람들이 실제 후기를 찾기 위해 <strong>네이버</strong> 지식인 답변이나 블로그를 탐색하고, <strong>구글</strong> 검색 포털에서 다양한 법률 분석 자료를 접합니다. 또한 <strong>유튜브</strong>를 통해 생생한 절차 해설 영상을 찾아보거나 <strong>트위터</strong>, <strong>인스타그램</strong>, <strong>페이스북</strong> 등 소셜 미디어를 경유하여 관련 카드뉴스를 구독하기도 합니다.
+          </p>
+          <p>
+            특히 젊은 층이 많이 활약하는 <strong>디시</strong>인사이드 회생 갤러리나 <strong>펨코</strong>, <strong>에펨코리아</strong> 커뮤니티에는 주식 및 암호화폐 투자로 인한 채무 청산 <strong>후기</strong>가 빈번하게 업로드되고 있습니다. 반면, 중장년층이 밀집한 <strong>보배드림</strong> 등지에서는 사업 자금 회수 실패와 연대 보증 문제로 개인회생을 신청한 중장년 가장들의 구체적인 담론이 오고 가곤 합니다.
+          </p>
+          
+          <div class="highlight-box">
+            <strong>20대 직장인 박 씨의 서구 둔산동 거주 성공 사례</strong><br>
+            학자금 대출 연체와 무리한 비트코인 투자로 약 6,000만 원의 부채를 지게 되었던 20대 청년 박 씨는, 매월 월급 210만 원 중에서 1인 생계비 약 135만 원을 제외한 나머지 가용소득 약 75만 원을 변제금으로 확정받았습니다. 대전지방법원의 깐깐한 심사 속에서도 투명한 금융 거래 내역 제출과 향후 성실 상환 다짐을 입증하여 최종 개시 결정을 받아낼 수 있었습니다. 36개월간 성실히 변제한 결과 전체 원금의 약 절반 가량을 탕감받는 인생 재건의 기회를 마주하게 되었습니다.
+          </div>
+          
+          <p>
+            상기 사례처럼 허위 광고나 대리인 사무실에서 제공하는 조작된 글이 아닌, 실제 경험자들이 겪은 <strong>내돈내산</strong> 방식의 경험 정보를 분별하는 안목이 요구됩니다. 많은 이들이 무작정 인터넷에서 수임비용이 가장 <strong>저렴한곳</strong>이나 단순히 싼곳만을 우선 기준으로 삼아 수임을 맡기다가, 빈번한 보정 명령 요구에 제대로 대응하지 못해 기각되거나 월 변제금이 터무니없이 높게 책정되어 중도 폐지되는 불상사를 겪기도 합니다. 법률 사무소의 평판과 신뢰도 <strong>순위</strong>, 실제 인가율을 최우선 지표로 두고 <strong>추천</strong> 업체를 선정하는 것이 한결 안전합니다.
+          </p>
+        </section>
+
+        <section id="ai-era">
+          <h2>AI 인공지능과 혁신 기술을 활용한 현대적 채무 분석</h2>
+          <p>
+            전 세계적으로 생성형 인공지능 기술이 급속히 전파되면서, 법률 산업에서도 디지털 전환이 활발히 추진되고 있습니다. 이제는 법률 소비자들이 구글의 <strong>제미나이</strong>(혹은 영문 <strong>Gemini</strong>)나 오픈에이아이의 <strong>챗지피티</strong>(혹은 영문 <strong>ChatGPT</strong>) 같은 진보된 <strong>AI</strong> 엔진을 활용하여, 복잡한 회생 규칙이나 예상 변제 비율에 대한 개략적인 개념 정리를 간편하게 수행할 수 있는 시대가 도래했습니다.
+          </p>
+          <p>
+            예컨대 인공지능 프롬프트에 자신의 구체적인 자산과 부채 비율을 질문하면 대략적인 생계비 공제 모형을 일목요연하게 정리해 줍니다. 아울러 일상에서 매일 사용하는 모바일 금융 자산 진단 플랫폼인 <strong>토스</strong> 앱을 이용하여 본인의 신용 거래 기록과 전체 대출 리스트를 실시간으로 조회한 뒤, 이를 바탕으로 개인회생 신청 시 누락되는 채권자가 없도록 면밀하게 채권자목록을 작성할 수 있습니다.
+          </p>
+          <p>
+            하지만 아무리 정교하게 훈련된 법률 기술 <strong>AI</strong> 모델이나 최첨단 검색 프로그램이라 할지라도 개별 신청인의 세밀한 가정사나 건강상의 이유, 추가 생계비 요구 권한 등 대전지방법원 재판부의 주관적 재량 판단에 작용하는 핵심 요인들까지 100퍼센트 예측해 낼 수는 없습니다. 따라서 혁신 도구들은 사전 기초 정보 수집 도구로 지혜롭게 활용하고, 실제 절차상의 디테일은 실력이 입증된 <strong>전문</strong> 변호인 법률사무소와 심층 대면 토론을 거쳐 서류를 접수하는 방식을 <strong>가장</strong> 적극적으로 <strong>추천</strong>합니다.
+          </p>
+        </section>
+
+        <section id="external-links" class="external-links-section">
+          <h2>신뢰할 수 있는 공식 행정기관 및 외부 법률 자료실</h2>
+          <p>
+            개인회생 및 채무조정 정보를 검색할 때 허위 광고나 정체불명의 사금융 유혹에 휩쓸리지 않으려면, 정부가 직접 운영하거나 법원에서 공인한 공식 기관의 인터넷 <strong>사이트</strong>를 통해 크로스체크하는 과정이 필수적입니다. 아래는 신뢰성이 검증된 5개 공식 외부 채널입니다.
+          </p>
+          
+          <a href="https://recoveryonlawg.koreahankang.com" target="_blank" rel="noopener noreferrer">1. 대전 채무조정 법률 정보 지원 허브 (reliabledone 포털 서브도메인 제공 자료실)</a>
+          <p>대안적 부채 정리를 고민하는 대전 시민들을 위해 기초 서류 구비 요령과 관할 구역 실무 정보를 제공하는 신뢰성 높은 통합 가이드 페이지입니다.</p>
+
+          <a href="https://namu.wiki/w/%EA%B0%9C%EC%9D%B8%ED%9A%8C%EC%83%9D" target="_blank" rel="noopener noreferrer">2. 나무위키 개인회생 상세 백과서전 자료</a>
+          <p>대중적인 위키 백과로서 개인회생 제도의 기본 취지, 연혁, 그리고 신청자가 겪게 되는 현실적인 사회생활 제약 사항들이 가감 없이 정리되어 있습니다.</p>
+
+          <a href="https://www.scourt.go.kr" target="_blank" rel="noopener noreferrer">3. 대한민국 대법원 전자민원센터</a>
+          <p>전국 법원에서 공통으로 사용하는 개인회생 신청서 양식, 진술서 서식, 그리고 가구원수별 최저 가용소득 산출에 관한 대법원 표준 규칙을 다운로드할 수 있습니다.</p>
+
+          <a href="https://daejeon.scourt.go.kr" target="_blank" rel="noopener noreferrer">4. 대전지방법원 공식 홈페이지</a>
+          <p>대전 서구, 유성구 등을 아우르는 관할 법원의 실무 공지사항과 외부회생위원 예납금 납부 기준 등 대전 지역에 특화된 법원 공지사항을 확인할 수 있습니다.</p>
+
+          <a href="https://www.ccrs.or.kr" target="_blank" rel="noopener noreferrer">5. 신용회복위원회 공식 사이트</a>
+          <p>법원 회생 신청 이전에 자격 조율이 가능한 프리워크아웃, 신속채무조정 등 공적 및 사적 제도 간의 장단점 비교 데이터를 체계적으로 확인해 볼 수 있습니다.</p>
+
+          <div class="warning-panel">
+            <strong>불법 유인 및 사금융 연계 광고 주의 경보</strong><br>
+            인터넷상에서 고객의 환심을 사기 위해 명절 기념 <strong>사은품</strong> 증정을 내걸거나, 불법 대출 한도 승인을 조건으로 한 <strong>현금지원</strong>, 출처 불명의 채무 상환용 <strong>지원금</strong> 제공을 명시하는 광고성 홍보 <strong>이벤트</strong> 문구들은 각별히 조심해야 합니다. 자칫 보이스피싱이나 불법 사채 채무 굴레에 다시금 빠질 수 있으므로 반드시 공신력 있는 공식 법률 기관을 통해 명확한 상환 계획을 수립해야 합니다.
+          </div>
+        </section>
+
+      </main>
+
+      <aside>
+        
+        <section id="consulting-form">
+          <h2>실시간 법률 무료 분석 상담 신청</h2>
+          <p>
+            채무 부담이 과중하여 자격 판단이나 개인 맞춤형 법률 계획서 상정이 급박하신 대전 관내 거주자분들을 위해 무료 비공개 검토를 보조해 드리고 있습니다. 별도의 회원 <strong>가입</strong> 과정 없이 기본적인 재정 수치와 연락처만으로 간편 접수가 가능합니다.
+          </p>
+          <form action="/submit-consultation" method="post" onsubmit="alert('상담 신청 접수가 완료되었습니다. 순차적으로 법률 검토가 개시됩니다.'); return false;">
+            <div class="form-group">
+              <label for="form-name">성함 또는 가명</label>
+              <input type="text" id="form-name" placeholder="예: 길동무" required>
+            </div>
+            <div class="form-group">
+              <label for="form-tel">회신 연락처</label>
+              <input type="tel" id="form-tel" placeholder="예: 010-1234-5678" required>
+            </div>
+            <div class="form-group">
+              <label for="form-debt-range">개략적인 총 부채 규모</label>
+              <select id="form-debt-range">
+                <option>2,000만 원 이하</option>
+                <option>2,000만 원 이상 5,000만 원 미만</option>
+                <option>5,000만 원 이상 1억 원 미만</option>
+                <option>1억 원 이상 5억 원 미만</option>
+                <option>5억 원 이상</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="form-comment">자유 기술 상담 요지 (선택)</label>
+              <input type="text" id="form-comment" placeholder="예: 독촉 전화를 멈추고 싶습니다.">
+            </div>
+            
+            <p style="font-size: 0.8rem; color: #64748b; margin-top: 10px;">
+              수집하는 모든 정보는 개인정보보호법에 의거하여 철저히 보안 유지되며, 상담이 종료되는 즉시 안전하게 영구 파기 처리됨을 명시합니다.
+            </p>
+            
+            <button type="submit" class="cta-button" style="width: 100%; border: none; cursor: pointer;">무료 사전 진단 예약 신청</button>
+          </form>
+        </section>
+
+        <section>
+          <h2>신뢰성 기반 브랜드 약속</h2>
+          <p>
+            수많은 법률 대행 단체 중 당당히 정직과 실력으로 채무자의 편에 서고자 노력하고 있습니다. 당 사무소는 과도한 이익을 취하기 위한 허위 변제금 축소 제안을 일절 거부하며, 법원 실무 기준에 전면 부합하는 현실적인 변제계획안 작성을 지원합니다.
+          </p>
+          <p>
+            초기 착수 비용의 일시 납부가 부담스러우신 취약 계층이나 청년층을 고려하여, 수임료의 합리적인 장기 분납 제도를 도입하여 동반 성장형 법률 가치를 실천해 나가고 있습니다.
+          </p>
+        </section>
+
+        <section>
+          <h2>관련 검색 지표 리스트</h2>
+          <div class="keyword-cloud">
+            <span>대전개인회생</span>
+            <span>대전개인회생전문</span>
+            <span>대전개인회생추천</span>
+            <span>대전개인회생비용</span>
+            <span>대전개인회생수임료</span>
+            <span>대전개인회생후기</span>
+            <span>대전개인회생계산기</span>
+            <span>대전개인회생변호사</span>
+            <span>대전개인회생법무사</span>
+            <span>대전개인파산</span>
+            <span>둔산동개인회생</span>
+            <span>유성개인회생</span>
+            <span>개인회생자격요건</span>
+            <span>최저생계비계산</span>
+            <span>청산가치보장원칙</span>
+          </div>
+        </section>
+
+      </aside>
+
+    </div>
+  </div>
+
+  <script>
+    function calculateRehab() {
+      const income = parseFloat(document.getElementById('calc-income').value) || 0;
+      const debt = parseFloat(document.getElementById('calc-debt').value) || 0;
+      const dependents = parseInt(document.getElementById('calc-dependents').value) || 1;
+      const assets = parseFloat(document.getElementById('calc-assets').value) || 0;
+
+      let livingExpenses = 1350000;
+      if (dependents === 2) {
+        livingExpenses = 2250000;
+      } else if (dependents === 3) {
+        livingExpenses = 2900000;
+      } else if (dependents === 4) {
+        livingExpenses = 3500000;
+      }
+
+      const resultBox = document.getElementById('calc-result');
+      resultBox.style.display = 'block';
+
+      if (income <= livingExpenses) {
+        resultBox.innerHTML = "조회 결과 안내: 현재 입력하신 월평균 실수령액이 부양가족 수 대비 산정된 보건복지부 법정 최저생계비보다 적습니다. 이러한 경우 개인회생 가용소득(월 변제금) 마련이 불가하여 기각 사유가 되므로, 법원을 통한 개인파산이나 신용회복위원회의 특별 서민 금융 지원 혜택 제도를 병행하여 조율해 보실 것을 강하게 권장합니다.";
+        resultBox.style.backgroundColor = '#fffbeb';
+        resultBox.style.borderColor = '#f59e0b';
+        resultBox.style.color = '#b45309';
+        return;
+      }
+
+      if (debt < 10000000) {
+        resultBox.innerHTML = "조회 결과 안내: 개인회생을 신청하기 위한 최소 채무 원금 조건인 1,000만 원 이상 기준을 총족하지 않는 것으로 계산됩니다. 채무 액수가 비교적 소액일 때에는 다이렉트 신용 워크아웃 프로그램을 통해 분할 이율을 하향 조정받는 형태를 알아보는 편이 효율적일 수 있습니다.";
+        resultBox.style.backgroundColor = '#fffbeb';
+        resultBox.style.borderColor = '#f59e0b';
+        resultBox.style.color = '#b45309';
+        return;
+      }
+
+      if (assets >= debt) {
+        resultBox.innerHTML = "조회 결과 안내: 채무자가 보유한 청산가능한 자산의 합계 금액이 갚아야 할 채무 총액보다 크게 산정되었습니다. 법률상의 대전제인 청산가치 보장의 원칙에 따라, 자산이 빚보다 많은 경우 사법부를 통한 조력을 얻기 어려우니 보유 부동산이나 정기적 보장형 상품의 청산 가치를 냉철하게 재قي산받을 필요가 있습니다.";
+        resultBox.style.backgroundColor = '#fffbeb';
+        resultBox.style.borderColor = '#f59e0b';
+        resultBox.style.color = '#b45309';
+        return;
+      }
+
+      const rawMonthlyPayment = income - livingExpenses;
+      const expectedMonthlyPayment = Math.max(rawMonthlyPayment, 150000); 
+      const totalMonths = 36;
+      const totalPayment = expectedMonthlyPayment * totalMonths;
+      const expectedReduction = Math.max(0, debt - totalPayment);
+      const reductionRate = Math.min(100, Math.round((expectedReduction / debt) * 100));
+
+      resultBox.innerHTML = 
+        "자가진단 분석 보고서 작성 완료<br><br>" +
+        "1단계: 귀하의 가구원수 기준 공제된 법정 최저생계비는 약 " + livingExpenses.toLocaleString() + " 원입니다.<br>" +
+        "2단계: 법정 기준에 입각한 월 예상 가용 변제금은 약 <strong>" + expectedMonthlyPayment.toLocaleString() + " 원</strong> 수준으로 유추됩니다.<br>" +
+        "3단계: 36개월간 총체적으로 성실 납부하게 될 총액은 약 " + totalPayment.toLocaleString() + " 원입니다.<br>" +
+        "4단계: 최상 조건 부합 시 면책 예정 금액은 약 <strong>" + expectedReduction.toLocaleString() + " 원</strong>에 도달할 수 있으며, 예상 원금 감면 비율은 약 <strong>" + reductionRate + "%</strong>입니다.<br><br>" +
+        "특이사항 알림: 대전지방법원 사법보좌관 및 회생위원 지침에 따라 주식, 코인, 무분별한 백화점 상품권 매입이나 도박 관련 자금 손실액이 발견될 시 상기 기재된 예상 청산가치에 일정 부분 가산 명령이 내려질 수 있습니다. 본 결과치는 시스템 알고리즘에 기초한 간이 견적이므로, 신청인의 직업 유형(급여소득자, 일용직 근로자, 영세 개인 사업자 등)에 부합하도록 전문가와 다시 한번 상세 조율을 거치시는 것이 안전합니다.";
+      
+      resultBox.style.backgroundColor = '#f0fdf4';
+      resultBox.style.borderColor = '#10b981';
+      resultBox.style.color = '#065f46';
+
+      const barAfter = document.querySelector('.bar-after');
+      if (barAfter) {
+        const visualPercentage = Math.max(10, Math.round((expectedMonthlyPayment / income) * 100));
+        barAfter.style.width = visualPercentage + '%';
+        barAfter.textContent = '약 ' + visualPercentage + '% (' + expectedMonthlyPayment.toLocaleString() + '원)';
+      }
+    }
+  </script>
+  
